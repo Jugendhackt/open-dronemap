@@ -12,8 +12,8 @@ function mark(color, coar, radius) {
 }
 
 function showNewCycles() {
-   bounds = map.getBounds();
-    var coar = [ [bounds.northEast.lat, bounds.northEast.lng] [bounds.northEast.lat, bounds.northEast.lng] ] //definiert screenposition
+    bounds = map.getBounds();
+    var coar = [ [bounds._northEast.lat, bounds._northEast.lng],[bounds._southWest.lat, bounds._southWest.lng] ] //definiert screenposition
     var url = "https://www.overpass-api.de/api/interpreter?data=[out:json];area[%22boundary%22~%22administrative%22][%22name%22~%22Berlin%22];node(area)[%22amenity%22~%22police%22];out;";
     console.log(coar);
     $.ajax({
