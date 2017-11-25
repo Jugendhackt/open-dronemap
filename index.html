@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Open Dronemap</title>
-    <link rel="stylesheet" href="./bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+    <!-- <link rel="stylesheet" href="./bootstrap-3.3.7-dist/css/bootstrap.min.css" />-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
 </head>
@@ -19,16 +19,18 @@
         </div>
         <div class="row">
             <div class="col-xs-1"></div>
-            <main class="col-xs-10" id="map">
+            <main class="col-xs-10" id="map" style="height: 80vh;">
 
             </main>
         </div>
     </div>
     <script>
-        var map = L.map('map', {
-            center: [51.505, -0.09],
-            zoom: 13
+        
+        var map = L.map(document.getElementById("map"), {
+            center: [52.5025, 13.4122],
+            zoom: 13,
         });
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar'}).addTo(map);
     </script>
 </body>
 
