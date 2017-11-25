@@ -12,7 +12,8 @@ function mark(color, coar, radius) {
 }
 
 function showNewCycles(coar) {
-    //[ [52.541806665759616,13.549575805664064] [3,4] ]
+   bounds = map.getBounds();
+    [ [bounds.northEast.lat, bounds.northEast.lng] [bounds.northEast.lat, bounds.northEast.lng] ] //definiert screenposition
     var url = "https://www.overpass-api.de/api/interpreter?data=[out:json];area[%22boundary%22~%22administrative%22][%22name%22~%22Berlin%22];node(area)[%22amenity%22~%22police%22];out;";
     $.ajax({
         url: url
@@ -25,5 +26,9 @@ function showNewCycles(coar) {
 }
 
 map.on("zoomend", function() {
+    showNewCycles();
+});
+
+map.on("moveend", function() {
     showNewCycles();
 });
