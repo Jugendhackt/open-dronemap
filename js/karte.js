@@ -12,12 +12,13 @@ function mark(color, coar, radius) {        // function, um Gebäude mit Kreis z
 }
 
 function showNewCycles() {          // Suche Gebäude
+    map.eachLayer(function(l){ if (l.options && l.options.color && l.options.color === "#FF0000") {map.removeLayer(l)}})
     var bounds = map.getBounds();   // bounds = Eckpunkte der Karte
     var coar = [bounds._southWest.lat, bounds._southWest.lng, bounds._northEast.lat, bounds._northEast.lng] // Definiert screenposition
     var roundedcoar = coar.map(function (k) {   // Runde Eckkoordinaten auf 4 nachkommastellen
         return (Math.round(k * 10000) / 10000)
     });
-    var url = "https://www.overpass-api.de/api/interpreter?data=[out:json];node(" + roundedcoar.join(",") + ")[%22amenity%22~%22police|hospital|energy%22];out;"; // Erstelle URL für Ajax
+    var url = "https://www.overpass-api.de/api/interpreter?data=[out:json];node(" + roundedcoar.join(",") + ")[%22amenity%22~%22police|hospital|prison%22];out;"; // Erstelle URL für Ajax
     console.log(url);
     $.ajax({
         url: url
@@ -25,7 +26,7 @@ function showNewCycles() {          // Suche Gebäude
         .done(function (data) {
             console.log(data);
             data.elements.forEach(function (place) {    // Jeder einzelne Gebäude
-                mark('#FF0000', [place.lat, place.lon], 500);   // Erstelle Kreis mit function mark
+                mark('#FF0000', [place.lat, place.lon], 100);   // Erstelle Kreis mit function mark
             })
         })
         .fail(function (e, textstatus) {
@@ -40,13 +41,28 @@ function showNewCycles() {          // Suche Gebäude
             .done(function (data) {
                 console.log(data);
                 data.elements.forEach(function (place) {
-                    mark('#FF0000', [place.lat, place.lon], 500);
+                    mark('#FF0000', [place.lat, place.lon], 100);
                 })
             })
             .fail(function (e, textstatus) {
                 console.log(e);
                 console.log(textstatus);
             });
+            var url = "https://www.overpass-api.de/api/interpreter?data=[out:json];node(" + roundedcoar.join(",") + ")[%22aeroway%22~%22*%22];out;"; //ruft elemente für bound-koordinaten auf
+            console.log(url);
+            $.ajax({
+                url: url
+            })
+                .done(function (data) {
+                    console.log(data);
+                    data.elements.forEach(function (place) {
+                        mark('#FF0000', [place.lat, place.lon], 1500);
+                    })
+                })
+                .fail(function (e, textstatus) {
+                    console.log(e);
+                    console.log(textstatus);
+                });
 }
 
 map.on("zoomend", function () { // Aktualisiere markierte Gebäude bei Zoomen 
