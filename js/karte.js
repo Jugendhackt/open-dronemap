@@ -17,7 +17,7 @@ function showNewCycles() {          // Suche Gebäude
     var roundedcoar = coar.map(function (k) {   // Runde Eckkoordinaten auf 4 nachkommastellen
         return (Math.round(k * 10000) / 10000)
     });
-    var url = "https://www.overpass-api.de/api/interpreter?data=[out:json];node(" + roundedcoar.join(",") + ")[%22amenity%22~%22police%22];out;"; // Erstelle URL für Ajax
+    var url = "https://www.overpass-api.de/api/interpreter?data=[out:json];node(" + roundedcoar.join(",") + ")[%22amenity%22~%22police|hospital|energy%22];out;"; // Erstelle URL für Ajax
     console.log(url);
     $.ajax({
         url: url
@@ -32,6 +32,21 @@ function showNewCycles() {          // Suche Gebäude
             console.log(e);
             console.log(textstatus);
         });
+        var url = "https://www.overpass-api.de/api/interpreter?data=[out:json];node(" + roundedcoar.join(",") + ")[%22landuse%22~%22military|industrial%22];out;"; //ruft elemente für bound-koordinaten auf
+        console.log(url);
+        $.ajax({
+            url: url
+        })
+            .done(function (data) {
+                console.log(data);
+                data.elements.forEach(function (place) {
+                    mark('#FF0000', [place.lat, place.lon], 500);
+                })
+            })
+            .fail(function (e, textstatus) {
+                console.log(e);
+                console.log(textstatus);
+            });
 }
 
 map.on("zoomend", function () { // Aktualisiere markierte Gebäude bei Zoomen 
