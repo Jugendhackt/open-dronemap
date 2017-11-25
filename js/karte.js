@@ -13,29 +13,32 @@ function mark(color, coar, radius) {
 
 function showNewCycles() {
     var bounds = map.getBounds();
-    var coar = [ [bounds._northEast.lat, bounds._northEast.lng],[bounds._southWest.lat, bounds._southWest.lng] ] //definiert screenposition
-    var url = "https://www.overpass-api.de/api/interpreter?data=[out:json];node(52,13,53,14)[%22amenity%22~%22police%22];out;"; //ruft elemente für bound-koordinaten auf
+    var coar = [bounds._southWest.lat, bounds._southWest.lng, bounds._northEast.lat, bounds._northEast.lng] //definiert screenposition
+    var roundedcoar = coar.map(function (k) {
+        return (Math.round(k * 10000) / 10000)
+    });
+    var url = "https://www.overpass-api.de/api/interpreter?data=[out:json];node(" + roundedcoar.join(",") + ")[%22amenity%22~%22police%22];out;"; //ruft elemente für bound-koordinaten auf
     console.log(url);
     $.ajax({
         url: url
     })
         .done(function (data) {
             console.log(data);
-            data.elements.forEach(function(place) {
-                mark('#0000FF',[place.lat,place.lon],500);
+            data.elements.forEach(function (place) {
+                mark('#0000FF', [place.lat, place.lon], 500);
             })
         })
-        .fail(function(e,textstatus) {
+        .fail(function (e, textstatus) {
             console.log(e);
             console.log(textstatus);
         });
 }
 
-map.on("zoomend", function() {
+map.on("zoomend", function () {
     showNewCycles();
 });
 
-map.on("moveend", function() {
+map.on("moveend", function () {
     showNewCycles();
 });
 
