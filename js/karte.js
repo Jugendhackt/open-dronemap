@@ -25,7 +25,7 @@ function showNewCycles() {
         .done(function (data) {
             console.log(data);
             data.elements.forEach(function (place) {
-                mark('#0000FF', [place.lat, place.lon], 500);
+                mark('#FF0000', [place.lat, place.lon], 500);
             })
         })
         .fail(function (e, textstatus) {
