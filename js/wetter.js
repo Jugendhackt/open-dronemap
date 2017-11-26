@@ -11,7 +11,7 @@ if (navigator.geolocation) {
         })
         .done(function(data){
             var speed = data.wind.speed;
-            $("#msg").html("Die Windwgeschwindigkeit beträgt: " + speed);
+            $("#msg").html("Die Windwgeschwindigkeit bei dir beträgt: " + speed);
         })
     });
 }
