@@ -2,7 +2,7 @@ var map = L.map(document.getElementById("map"), {   // Erstelle Karte
     center: [52.5025, 13.4122],     // Karte zentriert auf Betahaus Berlin
     zoom: 13,
 });
-L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {    // Definiere Tiles (OSM)
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {    // Definiere Tiles (OSM)
     foo: 'bar',
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap-Mitwirkende</a>',  // OSM Copyright Hinweis
 }).addTo(map);
