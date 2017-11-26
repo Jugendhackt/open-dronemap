@@ -48,7 +48,7 @@ function showNewCycles() {          // Suche Gebäude
                 console.log(e);
                 console.log(textstatus);
             });
-            var url = "https://www.overpass-api.de/api/interpreter?data=[out:json];node(" + roundedcoar.join(",") + ")[%22aeroway%22~%22aerodrome|apron|hangar|helipad|heliport|beacon|User%20defined%22];out;"; //ruft elemente für bound-koordinaten auf
+            var url = "https://www.overpass-api.de/api/interpreter?data=[out:json];node(" + roundedcoar.join(",") + ")[%22aeroway%22~%22aerodrome|apron|hangar|helipad|heliport|beacon%22];out;"; //ruft elemente für bound-koordinaten auf
             console.log(url);
             $.ajax({
                 url: url
